@@ -12,12 +12,12 @@ class News extends Model
 
     public function getGallery()
     {
-        return $this->belongsTo('Galleries', 'gallery_id');
+        return $this->belongsTo('App\Galleries', 'gallery_id');
     }
 
     public function getFiles()
     {
-        return $this->belongsTo('Files', 'file_id');
+        return $this->belongsTo('App\Files', 'file_id');
     }
 
 }

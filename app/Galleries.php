@@ -12,12 +12,12 @@ class Galleries extends Model
 
     public function getDescription()
     {
-        return $this->hasOne('Galleries__Descriptions', 'gallery_id');
+        return $this->hasOne('App\Galleries__Descriptions', 'gallery_id');
     }
 
     public function getImages()
     {
-        return $this->hasMany('Galleries__Images', 'gallery_id');
+        return $this->hasMany('App\Galleries__Images', 'gallery_id')->with('getFile');
     }
 
 }

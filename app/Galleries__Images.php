@@ -12,7 +12,7 @@ class Galleries__Images extends Model
 
     public function getFile()
     {
-        return $this->belongsTo('Files', 'file_id');
+        return $this->belongsTo('App\Files', 'file_id');
     }
 
 }

@@ -11,7 +11,7 @@ class References extends Model
 
     public function getGallery()
     {
-        return $this->belongsTo('App\Galleries', 'gallery_id');
+        return $this->belongsTo('App\Galleries', 'gallery_id')->with('getImages');
     }
     
     public function getFile()

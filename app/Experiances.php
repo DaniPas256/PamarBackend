@@ -12,7 +12,16 @@ class Experiances extends Model
 
     public function getGallery()
     {
-        return $this->belongsTo('Galleries', 'gallery_id');
+        return $this->belongsTo('App\Galleries', 'gallery_id')->with('getImages');
+    }
+    
+    public function getFiles()
+    {
+        return $this->belongsTo('App\Files', 'file_id');
     }
 
+    public function getItems()
+    {
+        return $this->hasMany('App\Experiances__List_Items', 'experiance_id');
+    }
 }

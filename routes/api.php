@@ -54,5 +54,5 @@ $api->version('v1', function (Router $api) {
     Route::resource('references', 'ReferencesController');
     Route::resource('news', 'NewsController');
 
-    Route::get('get_page_content/{page}/{lang}', 'PageContent@getDataForPage');
+    Route::get('get_page_content/{page}/{lang}/{page_id?}', 'PageContent@getDataForPage');
 });

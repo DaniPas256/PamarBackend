@@ -5,11 +5,14 @@ use Illuminate\Http\Request;
 use App\Dictionaries;
 use App\Pages;
 use App\References;
+use App\Galleries;
+use App\Experiances;
+use App\News;
 use Response;
 
 class PageContent extends Controller
 {
-    public function getDataForPage($page, $lang)
+    public function getDataForPage($page, $lang, $page_id = null)
     {
         $page_dict = $this->getDictForPage( $lang );
         switch ($page) {
@@ -19,24 +22,39 @@ class PageContent extends Controller
             case 'index':
                 $response = [];
                 $response['dict'] = $page_dict;
-                $response['references'] = References::where( [ [ 'translate_id', '=', $lang ], [ 'show_on_slider', '=', '1' ] ])->with(['getFile'])->limit('3')->get();
-                $response['news'] = [];
+                $response['references_slider'] = References::where( [ [ 'translate_id', '=', $lang ], [ 'show_on_slider', '=', '1' ] ])->with(['getFile'])->limit('3')->get();
+                $response['references_tiles'] = References::where( [ [ 'translate_id', '=', $lang ], [ 'show_on_main', '=', '1' ] ])->with(['getFile'])->limit('8')->get();
+                $response['logos'] = Galleries::select('id')->where( 'special_id', 'index' )->with('getImages')->first();
+                $response['news'] = News::where(  [ [ 'translate_id', '=', $lang ], [ 'show_on_slider', '=', '1' ] ] )->with(['getFiles'])->limit('3')->get();
 
                 return Response::json( $response );
             break;
             case 'experiance':
                 $response = [];
                 $response['dict'] = $page_dict;
+                $experiance = Experiances::where( 'translate_id',  $lang )->with( ['getGallery', 'getFiles', 'getItems'] )->orderbyRaw( ' category ASC, n_order ASC' )->get();
+                
+                $transform = [];
+                foreach( $experiance as $row ){
+                    $transform[ $row['category'] ][] = $row;
+                }
+
+                $response['experiance'] = $transform;
+
                 return Response::json( $response );
             break;
             case 'references':
                 $response = [];
                 $response['dict'] = $page_dict;
+                $response['references'] = References::where( [ [ 'translate_id', '=', $lang ], [ 'show_on_main', '=', '1' ] ])->with(['getFile'])->get();
+                $response['logos'] = Galleries::select('id')->where( 'special_id', 'references' )->with('getImages')->first();
                 return Response::json( $response );
             break;
             case 'references_details':
                 $response = [];
                 $response['dict'] = $page_dict;
+                $response['content'] =  References::where( [ [ 'translate_id', '=', $lang ], [ 'slug', '=', $page_id ] ] )->with(['getFile', 'getGallery'])->first();
+                
                 return Response::json( $response );
             break;
             case 'about':
