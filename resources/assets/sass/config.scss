@@ -1,0 +1,141 @@
+$red: #ed3833;
+$blue: #42a5e2;
+$gray: #efefef;
+$text: #343434;
+$white: #ffffff;
+
+$checkbox-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAYAAACN1PRVAAAABHNCSVQICAgIfAhkiAAAAVtJREFUSInt1M9KAlEUBvDvXGVqoUHeFtUuEAQXoTOmAwa5jnDRC9SjuAh6h6B9EEEQRIuIVvmvRkpaBC4MgigdhVpY6HhauakYR2WEwm95Oef+7oHDpbqutQDOw80wYvL9Y95LjGeZN1JuWqaulQFAuIl8zwSbYOPBmiuRyFiwph5Ndz3imIPBKbs676hQI6GtWow9xWqvUaXyaVc70mRvseVQl/gIopOeub576Fc/9GS1aHSx7RHnZPGWLN4WnPTYTmYm1PtGXN34ASVDflLEBbibkUXjzOkDbTHh4XUWtGvqaqZ3xuGwIjq+UyI+kIXSvlOoLzZ7VXoM0EucAa2uqye1ZMhv+qcPGVyVOSNj1zswBgCUfWrJnJEGOC8sX5UIiswb24NCjjAAIIDncqUdIqQC9LpJgDUMNtA2BrI35WGQXv7m3zjB/ifmZcJCXVcv3USYecnN+3/NF+AZazlAqcjwAAAAAElFTkSuQmCC");
+$parallax-bg: url("/assets/backgrounds/counters_bg_photo.jpg");
+
+@mixin lato {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 3px;
+}
+
+@mixin roboto {
+  font-family: "Roboto", sans-serif;
+}
+
+@mixin blue-layer {
+  background: $blue;
+  opacity: 0.3;
+}
+
+@mixin blue-header {
+  font-weight: bold;
+  color: $blue;
+  text-transform: uppercase;
+  margin-left: 50px;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 40px;
+    position: absolute;
+    left: -55px;
+    top: calc(0.5em + 1px);
+    background: $blue;
+  }
+}
+
+@mixin absolute-100 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Sweep To Right */
+@mixin sweep-to-right($bgColor: #2098d1, $txtColor: white) {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $bgColor;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+  }
+  &:hover,
+  &.active {
+    color: $txtColor;
+    &:before {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+  }
+  &:focus {
+    color: $txtColor;
+    &:before {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+  }
+  &:active {
+    color: $txtColor;
+    &:before {
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+  }
+}
+
+label,
+p {
+  letter-spacing: 1px;
+}
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(
+          #{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} *
+            ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)})
+        );
+      }
+
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}
+
+$min_width: 320px;
+$max_width: 1000px;
+$min_font: 16px;
+$max_font: 22px;

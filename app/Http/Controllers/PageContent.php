@@ -22,10 +22,10 @@ class PageContent extends Controller
             case 'index':
                 $response = [];
                 $response['dict'] = $page_dict;
-                $response['references_slider'] = References::where( [ [ 'translate_id', '=', $lang ], [ 'show_on_slider', '=', '1' ] ])->with(['getFile'])->limit('3')->get();
-                $response['references_tiles'] = References::where( [ [ 'translate_id', '=', $lang ], [ 'show_on_main', '=', '1' ] ])->with(['getFile'])->limit('8')->get();
+                $response['references_slider'] = References::referenceJoin($lang)->where( [ [ 'show_on_slider', '=', '1' ] ])->with(['getFile'])->limit('3')->get();
+                $response['references_tiles'] = References::referenceJoin($lang)->where( [ [ 'show_on_main', '=', '1' ] ])->with(['getFile'])->limit('8')->get();
                 $response['logos'] = Galleries::select('id')->where( 'special_id', 'index' )->with('getImages')->first();
-                $response['news'] = News::where(  [ [ 'translate_id', '=', $lang ], [ 'show_on_slider', '=', '1' ] ] )->with(['getFiles'])->limit('3')->get();
+                $response['news'] = News::newsJoin($lang)->where(  [ [ 'show_on_slider', '=', '1' ] ] )->with(['getFile'])->limit('3')->get();
 
                 return Response::json( $response );
             break;
@@ -35,10 +35,20 @@ class PageContent extends Controller
                 $experiance = Experiances::where( 'translate_id',  $lang )->with( ['getGallery', 'getFiles', 'getItems'] )->orderbyRaw( ' category ASC, n_order ASC' )->get();
                 
                 $transform = [];
+                $get_groups = [];
+
                 foreach( $experiance as $row ){
-                    $transform[ $row['category'] ][] = $row;
+                    $transform[ $row['category'] ][$row['experiance_group_id']][] = $row;
+                    $get_groups[] = $row['experiance_group_id'];
                 }
 
+                $grp = \App\Experiances__Groups::whereIn( 'id', $get_groups )->get();
+                $groups = [];
+                foreach( $grp as $row ){
+                    $groups[$row->id] = $row;
+                }
+                
+                $response['groups'] = $groups;
                 $response['experiance'] = $transform;
 
                 return Response::json( $response );
@@ -46,14 +56,14 @@ class PageContent extends Controller
             case 'references':
                 $response = [];
                 $response['dict'] = $page_dict;
-                $response['references'] = References::where( [ [ 'translate_id', '=', $lang ], [ 'show_on_main', '=', '1' ] ])->with(['getFile'])->get();
+                $response['references'] = References::referenceJoin($lang)->with(['getFile'])->get();
                 $response['logos'] = Galleries::select('id')->where( 'special_id', 'references' )->with('getImages')->first();
                 return Response::json( $response );
             break;
             case 'references_details':
                 $response = [];
                 $response['dict'] = $page_dict;
-                $response['content'] =  References::where( [ [ 'translate_id', '=', $lang ], [ 'slug', '=', $page_id ] ] )->with(['getFile', 'getGallery'])->first();
+                $response['content'] =  References::referenceJoin($lang)->where( [ [ 'slug', '=', $page_id ] ] )->with(['getFile', 'getGallery'])->first();
                 
                 return Response::json( $response );
             break;
@@ -65,8 +75,17 @@ class PageContent extends Controller
             case 'news':
                 $response = [];
                 $response['dict'] = $page_dict;
+                $response['content'] =  News::newsJoin($lang)->where( [ [ 'visible', '=', 1 ] ] )->with(['getFile', 'getGallery'])->orderby('news.id', 'DESC')->get();
+ 
                 return Response::json( $response );
             break;
+            case 'news_details':
+                $response = [];
+                $response['dict'] = $page_dict;
+                $response['content'] = News::newsJoin($lang)->where( [ [ 'slug', '=', $page_id ], [ 'visible', '=', 1 ] ] )->with(['getFile', 'getGallery'])->first();
+                
+                return Response::json( $response );
+            break;            
             default:
                 $response = [];
                 $response['dict'] = $page_dict;

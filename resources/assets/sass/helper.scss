@@ -1,0 +1,142 @@
+$space-values: (0, 3, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 80, 100) !default;
+$font-values: (8, 10, 12, 14, 16, 18, 22, 24, 26, 28, 30) !default;
+
+// margin and padding shorthands
+$space-prefixes: (
+  p: padding,
+  p-t: padding-top,
+  p-r: padding-right,
+  p-b: padding-bottom,
+  p-l: padding-left,
+  m: margin,
+  m-t: margin-top,
+  m-r: margin-right,
+  m-b: margin-bottom,
+  m-l: margin-left
+) !default;
+
+@mixin make-spaces() {
+  @each $attr-short, $attr-long in $space-prefixes {
+    @each $value in $space-values {
+      .#{$attr-short}-#{$value} {
+        #{$attr-long}: #{$value}#{"px"};
+      }
+    }
+  }
+}
+
+@mixin make-fonts() {
+  @each $value in $font-values {
+    .f-s-#{$value} {
+      font-size: #{$value}#{"px"};
+    }
+  }
+}
+
+@include make-fonts();
+@include make-spaces();
+
+.m-t-a {
+  margin-top: auto;
+}
+
+.m-b-a {
+  margin-bottom: auto;
+}
+
+.m-l-a {
+  margin-left: auto;
+}
+
+.m-r-a {
+  margin-right: auto;
+}
+
+.l-h-n {
+  line-height: 1.6;
+}
+
+.l-s-n {
+  letter-spacing: 1px;
+}
+
+div.row {
+  padding: 0;
+}
+
+div.row > div {
+  padding: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-flow: column wrap;
+}
+
+.content-center {
+  justify-content: center;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.padding-0 {
+  padding: 0 !important;
+}
+
+.margin-0 {
+  margin: 0 !important;
+}
+
+.relative {
+  position: relative;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.bg-gray {
+  background: $gray;
+}
+
+.blue-header {
+  @include blue-header;
+}
+
+.blue-layer {
+  @include blue-layer;
+  @include absolute-100;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.important-padding {
+  padding: 10px 20px !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.colorBlue {
+  color: $blue;
+}
+
+.colorRed {
+  color: $red;
+}
+
+.align-left {
+  text-align: left;
+}

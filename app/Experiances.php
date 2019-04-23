@@ -24,4 +24,9 @@ class Experiances extends Model
     {
         return $this->hasMany('App\Experiances__List_Items', 'experiance_id');
     }
+
+    public function getGroup()
+    {
+        return $this->belongsTo('App\Experiances__Groups', 'experiance_group_id');
+    }
 }

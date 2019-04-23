@@ -6,12 +6,17 @@
     "type": "project",
     "require": {
         "php": ">=7.1.3",
-        "laravel/framework": "5.6.*",
-        "fideloper/proxy": "^4.0",
-        "laravel/tinker": "^1.0",
-        "tymon/jwt-auth": "1.0.*",
+        "barryvdh/laravel-cors": "0.11.*",
+        "davejamesmiller/laravel-breadcrumbs": "^5.2",
         "dingo/api": "2.0.0-alpha1",
-        "barryvdh/laravel-cors": "0.11.*"
+        "fideloper/proxy": "^4.0",
+        "illuminate/html": "^5.0",
+        "itsgoingd/clockwork": "^3.1",
+        "laravel/framework": "5.6.*",
+        "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.2.0",
+        "talvbansal/media-manager": "^2.5",
+        "tymon/jwt-auth": "1.0.*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

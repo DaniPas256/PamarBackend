@@ -14,7 +14,8 @@ class GalleriesController extends Controller
    */
   public function index()
   {
-    
+    $gallery = \App\Galleries::paginate(20);
+    return \View::make('gallery.index', compact( 'gallery' ) );
   }
 
   /**
@@ -24,7 +25,7 @@ class GalleriesController extends Controller
    */
   public function create()
   {
-    
+    return \View::make('gallery.create');
   }
 
   /**
@@ -34,18 +35,24 @@ class GalleriesController extends Controller
    */
   public function store(Request $request)
   {
-    
-  }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
+    $rules = array(
+      'comment' => 'required'
+      );
+    $validator = \Validator::make(\Input::all(), $rules);
+
+    if ($validator->fails()) {
+        return \Redirect::to('gallery/create')
+            ->withErrors($validator)
+            ->withInput(\Input::all());
+    } else {
+        $gallery = new \App\Galleries;
+        $gallery->comment = \Input::get('comment');
+        $gallery->save();
+
+        \Session::flash('message', 'Successfully created nerd!');
+        return \Redirect::to( action('GalleriesController@edit', [$gallery->id] ) );
+    }
   }
 
   /**
@@ -54,9 +61,10 @@ class GalleriesController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function edit($id)
+  public function edit( \App\Galleries $gallery)
   {
-    
+    $gallery->load(['getImages']);
+    return \View::make('gallery.edit', compact( 'gallery' ));
   }
 
   /**
@@ -65,9 +73,24 @@ class GalleriesController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update( \App\Galleries $gallery )
   {
-    
+    $rules = array(
+      'comment'       => 'required'
+      );
+    $validator = \Validator::make(\Input::all(), $rules);
+
+    if ($validator->fails()) {
+        return \Redirect::to('gallery/' . $gallery->id . '/edit')
+            ->withErrors($validator)
+            ->withInput(\Input::all());
+    } else {
+        $gallery->comment = \Input::get('comment');
+        $gallery->save();
+
+        \Session::flash('message', 'Successfully created nerd!');
+        return \Redirect::to('gallery/index');
+    }
   }
 
   /**
@@ -76,11 +99,36 @@ class GalleriesController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy( \App\Galleries $gallery )
   {
-    
+    $gallery->delete();
+    \Session::flash('message', 'Successfully created nerd!');
+    return \Redirect::to('gallery/index');
   }
   
+  public function uploadFile( Request $request, \App\Galleries $gallery ){
+    $imageName = time() . '_' . $request->file->getClientOriginalName();
+    $request->file->move( public_path('userFiles/galleries'), $imageName);
+    
+    $path_to_file = 'userFiles/galleries/' . $imageName;
+    $file = new \App\Files();
+      $file->name = $request->file->getClientOriginalName(); 
+      $file->extension = $request->file->getClientOriginalExtension();
+      $file->path = $path_to_file; 
+    $file->save();
+
+    $gallery_image = new \App\Galleries__Images();
+      $gallery_image->file_id = $file->id;
+      $gallery_image->gallery_id = $gallery->id;
+    $gallery_image->save();
+
+    return response()->json(['success'=>'You have successfully upload file.']);
+  }
+
+  public function deleteGalleryImage( \App\Galleries__Images $gallery ){
+    $gallery->delete();
+    return response()->json( [ 'status' => true ] );
+  }
 }
 
 ?>

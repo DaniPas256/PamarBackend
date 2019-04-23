@@ -1,0 +1,11 @@
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\arena_gliwice.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\doha_metro.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\gemini_park.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\katowice_airport.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\krakow_airport.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\philip_morris.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\print.txt
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\saint_gobain.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\supersam.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\trw.png
+C:\xampp\htdocs\PAMAR\assets\userFiles\logo_references\unity_centre.png
