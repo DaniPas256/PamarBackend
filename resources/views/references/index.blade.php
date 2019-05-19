@@ -35,7 +35,7 @@
                                             <td class="image__holder">
                                                 <img src="{{ asset( str_replace( './backend/public/', '', $row->getFile->path ) ) }}" alt="">
                                             </td>
-                                            <td>{{ $row->full_name }}</td>
+                                            <td>{{ strip_tags($row->full_name) }}</td>
                                             <td>
                                                 <a href="{{ url('reference/'.$row->id.'/edit') }}">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteBase /backend/
+RewriteCond %{HTTP_HOST} ^pamarpszczyna.pl$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.pamarpszczyna.pl$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /backend/public/$1 [L]

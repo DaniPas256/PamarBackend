@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Dictionaries extends Model 
 {
 
-    protected $table = 'Dictionaries';
+    protected $table = 'dictionaries';
     public $timestamps = true;
 
     use SoftDeletes;

@@ -22,8 +22,8 @@ class PageContent extends Controller
             case 'index':
                 $response = [];
                 $response['dict'] = $page_dict;
-                $response['references_slider'] = References::referenceJoin($lang)->where( [ [ 'show_on_slider', '=', '1' ] ])->with(['getFile'])->limit('3')->get();
-                $response['references_tiles'] = References::referenceJoin($lang)->where( [ [ 'show_on_main', '=', '1' ] ])->with(['getFile'])->limit('8')->get();
+                $response['references_slider'] = References::referenceJoin($lang)->where( [ [ 'show_on_slider', '=', '1' ] ])->with(['getFile'])->limit('5')->get();
+                $response['references_tiles'] = References::referenceJoin($lang)->where( [ [ 'show_on_main', '=', '1' ] ])->with(['getFile'])->limit('8')->inRandomOrder()->get();
                 $response['logos'] = Galleries::select('id')->where( 'special_id', 'index' )->with('getImages')->first();
                 $response['news'] = News::newsJoin($lang)->where(  [ [ 'show_on_slider', '=', '1' ] ] )->with(['getFile'])->limit('3')->get();
 
@@ -69,6 +69,7 @@ class PageContent extends Controller
             break;
             case 'about':
                 $response = [];
+                $response['gallery'] = Galleries::select('id')->where( 'special_id', 'about' )->with('getImages')->first();
                 $response['dict'] = $page_dict;
                 return Response::json( $response );
             break;

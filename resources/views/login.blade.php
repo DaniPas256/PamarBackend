@@ -1,5 +1,12 @@
 @extends('layout.app')
 @section('content')
+    @if ( $USER['id'] > 0 )
+      <script>
+        (function(){
+          window.location.href = 'reference/index';
+        })();
+      </script>
+    @endif
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
 
     <div class="row">

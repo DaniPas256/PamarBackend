@@ -4,7 +4,7 @@
     
     <div class="tab-content">
         {!! Form::open(array('action' => ['DictionariesController@update', $id], 'method' => 'POST')) !!}
-        @method('patch')
+        {{method_field('PATCH')}}
         <tabs :languages = 'languages'></tabs>
         <div class="m-b-30"></div>
                 @foreach ($languages as $key => $translate_id)

@@ -24,11 +24,16 @@
                             </li>      
                             <li>
                                 {!! Form::label('full_name['.$translate_id.']', '* Pełna nazwa ( na podstronę ):') !!}
-                                {!! Form::text('full_name['.$translate_id.']', null, [ 'required' => true, 'placeholder' => 'Pełna nazwa', 'class' => 'ckeditor' ]) !!}
+                                {!! Form::textarea('full_name['.$translate_id.']', null, [ 'required' => true, 'placeholder' => 'Pełna nazwa', 'class' => 'ckeditor' ]) !!}
                                 <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('full_name') }}</p>
                             </li> 
                             <li>
-                                {!! Form::label('project_details['.$translate_id.']', 'Opis:') !!}
+                                {!! Form::label('description['.$translate_id.']', 'Opis:') !!}
+                                {!! Form::textarea('description['.$translate_id.']', null, [ 'required' => false, 'placeholder' => '', 'class' => 'ckeditor' ]) !!}
+                                <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('description') }}</p>
+                            </li>                             
+                            <li>
+                                {!! Form::label('project_details['.$translate_id.']', 'Szczegóły projektu:') !!}
                                 {!! Form::textarea('project_details['.$translate_id.']', null, [ 'required' => false, 'placeholder' => '', 'class' => 'ckeditor' ]) !!}
                                 <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('project_details') }}</p>
                             </li>  

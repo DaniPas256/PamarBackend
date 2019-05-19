@@ -3,7 +3,7 @@
     {{ Breadcrumbs::render('gallery.edit', $gallery) }}
 
 {!! Form::model( $gallery, array('action' => ['GalleriesController@update', $gallery->id], 'method' => 'PATCH')) !!}
-    @method('patch')
+    {{method_field('PATCH')}}
 	<ul>
 		<li>
 			{!! Form::label('comment', '* Nazwa galerii:') !!}

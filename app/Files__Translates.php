@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Files__Translates extends Model 
 {
 
-    protected $table = 'Files__Translates';
+    protected $table = 'files__translates';
     public $timestamps = true;
 
 }

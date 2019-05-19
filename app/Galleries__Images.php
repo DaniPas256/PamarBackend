@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Galleries__Images extends Model 
 {
 
-    protected $table = 'Galleries__Images';
+    protected $table = 'galleries__images';
     public $timestamps = true;
 
     public function getFile()

@@ -4,7 +4,7 @@
     
     <div class="tab-content">
         {!! Form::open(array('action' => ['ExperiancesController@update', $parent_uniq], 'method' => 'POST')) !!}
-        @method('patch')
+        {{method_field('PATCH')}}
         <tabs :languages = 'languages'></tabs>
         <div class="m-b-30"></div>
                 @foreach ($languages as $key => $translate_id)
@@ -40,7 +40,7 @@
                             </li>   
                             <li>
                                 {!! Form::label('gallery_id['.$translate_id.']', 'Galeria:') !!}
-                                {!! Form::select('gallery_id['.$translate_id.']', $galleries, ( $experiance_data[$translate_id]['gallery_id'] || 0 ) ); !!} 
+                                {!! Form::select('gallery_id['.$translate_id.']', $galleries, ( $experiance_data[$translate_id]['gallery_id'] == null ? 0 : $experiance_data[$translate_id]['gallery_id'] ) ); !!} 
                                 <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('gallery_id') }}</p>
                             </li>                                                                                        
                         </ul>                                     

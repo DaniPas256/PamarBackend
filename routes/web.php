@@ -20,7 +20,7 @@
         
         Route::group(['middleware' => 'myAuth'], function () {
             Route::get('index', 'HomeController@index' );
-            
+
             // GALLERY
             Route::post('gallery/uploadFile/{gallery}/', 'GalleriesController@uploadFile' );
             Route::get('gallery/index/', 'GalleriesController@index' );
@@ -30,6 +30,14 @@
             Route::patch('gallery/{gallery}/update/', 'GalleriesController@update' );
             Route::get('gallery/{gallery}/delete/', 'GalleriesController@destroy' );
             Route::get('gallery/{gallery}/deleteGalleryImage/', 'GalleriesController@deleteGalleryImage' );
+
+            //NEWS
+            Route::get('news/index/', 'NewsController@index' );
+            Route::get('news/create/', 'NewsController@create' );
+            Route::post('news/store/', 'NewsController@store' );
+            Route::get('news/{news}/edit/', 'NewsController@edit' );
+            Route::patch('news/{news}/update/', 'NewsController@update' );
+            Route::get('news/{news}/delete/', 'NewsController@destroy' );  
 
             //REFERENCES
             Route::get('reference/index/', 'ReferencesController@index' );
@@ -70,13 +78,13 @@
         });
         Route::get('storage/{filename}', function ($filename)
         {
-            $path = 'http://127.0.0.1:8000/storage/app/public/' . $filename;
+            $path = '/workspace/backend/public/userFiles/' . $filename;
 
             if (!\File::exists($path)) {
                 echo $path;
                 abort(404);
             }
-
+ 
             $file = \File::get($path);
             $type = \File::mimeType($path);
 

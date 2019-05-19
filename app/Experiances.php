@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Experiances extends Model 
 {
 
-    protected $table = 'Experiances';
+    protected $table = 'experiances';
     public $timestamps = true;
 
     public function getGallery()

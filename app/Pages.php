@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pages extends Model 
 {
 
-    protected $table = 'Pages';
+    protected $table = 'pages';
     public $timestamps = true;
 
     use SoftDeletes;

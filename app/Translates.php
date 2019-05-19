@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Translates extends Model 
 {
 
-    protected $table = 'Translates';
+    protected $table = 'translates';
     public $timestamps = true;
 
 }

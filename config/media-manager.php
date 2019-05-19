@@ -24,7 +24,7 @@ return [
      */
     'routes' => [
         'middleware' => [],
-        'prefix'     => env('MEDIA_MANAGER_ROUTE_PREFIX', '/admin/'),
+        'prefix'     => env('MEDIA_MANAGER_ROUTE_PREFIX', '/workspace/backend/admin/'),
     ],
 
     /*

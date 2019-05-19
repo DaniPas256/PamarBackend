@@ -1790,7 +1790,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       dropzoneOptions: {
-        url: this.url,
+				url: this.url,
+				maxFilesize: 20,
         uploadMultiple: false,
         autoQueue: true,
         headers: {
@@ -1878,18 +1879,19 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    if (this.init !== undefined) {
-      this.pageImage = this.init.replace("./backend/public", window.location.origin);
+    if (this.init !== undefined) { 
+       this.pageImage = this.init.replace("./backend/public", window.location.origin + "/backend/public");
     }
 
     window.eventHub.$on("media-manager-selected-editor", function (file) {
-      // Do something with the file info...
+			// Do something with the file info...
+			
       console.log(file.name);
       console.log(file.mimeType);
       console.log(file.relativePath);
       console.log(file.webPath);
-      _this.pageImage = _this.asset.substr(0, _this.asset.length - 1) + file.webPath; // Hide the Media Manager...
-
+      _this.pageImage = file.webPath; // Hide the Media Manager...
+			// _this.asset.substr(0, _this.asset.length - 1) + 
       _this.showMediaManager = false;
     });
   }
@@ -47749,7 +47751,7 @@ var app = new Vue({
   created: function created() {
     var _this = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(window.location.origin + '/translates').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(window.location.origin + '/backend/public/translates').then(function (response) {
       _this.languages = response.data;
     });
   },
@@ -58230,7 +58232,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         type: Boolean
       },
       prefix: {
-        "default": "/admin/",
+        "default": "/backend/admin/",
         type: String
       },
       selectedEventName: {
@@ -58804,7 +58806,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         type: [Object, Boolean]
       },
       prefix: {
-        "default": "/admin/",
+        "default": "/backend/admin/",
         type: String
       },
       show: {
@@ -59028,7 +59030,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         type: String
       },
       prefix: {
-        "default": "/admin/",
+        "default": "/backend/admin/",
         type: String
       },
       show: {
@@ -59208,7 +59210,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         type: [Object, Boolean]
       },
       prefix: {
-        "default": "/admin/",
+        "default": "/backend/admin/",
         type: String
       },
       show: {
@@ -59371,7 +59373,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         type: [Object, Boolean]
       },
       prefix: {
-        "default": "/admin/",
+        "default": "/backend/admin/",
         type: String
       },
       show: {

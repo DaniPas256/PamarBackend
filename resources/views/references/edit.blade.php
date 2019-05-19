@@ -4,7 +4,7 @@
     
     <div class="tab-content">
         {!! Form::open(array('action' => ['ReferencesController@update', $reference ], 'method' => 'POST')) !!}
-        @method('patch')
+        {{method_field('PATCH')}}
         <tabs :languages = 'languages'></tabs>
         <div class="m-b-30"></div>
                 @foreach ($languages as $key => $translate_id)
@@ -25,11 +25,16 @@
                             </li>      
                             <li>
                                 {!! Form::label('full_name['.$translate_id.']', '* Pełna nazwa ( na podstronę ):') !!}
-                                {!! Form::text('full_name['.$translate_id.']', $reference_data[$translate_id]['full_name'], [ 'required' => true, 'placeholder' => 'Pełna nazwa', 'class' => 'ckeditor' ]) !!}
+                                {!! Form::textarea('full_name['.$translate_id.']', $reference_data[$translate_id]['full_name'], [ 'required' => true, 'placeholder' => 'Pełna nazwa', 'class' => 'ckeditor' ]) !!}
                                 <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('full_name') }}</p>
                             </li> 
                             <li>
-                                {!! Form::label('project_details['.$translate_id.']', 'Opis:') !!}
+                                {!! Form::label('description['.$translate_id.']', 'Opis:') !!}
+                                {!! Form::textarea('description['.$translate_id.']', $reference_data[$translate_id]['description'], [ 'required' => false, 'placeholder' => '', 'class' => 'ckeditor' ]) !!}
+                                <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('description') }}</p>
+                            </li>                              
+                            <li>
+                                {!! Form::label('project_details['.$translate_id.']', 'Szczególy projektu:') !!}
                                 {!! Form::textarea('project_details['.$translate_id.']', $reference_data[$translate_id]['project_details'], [ 'required' => false, 'placeholder' => '', 'class' => 'ckeditor' ]) !!}
                                 <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('project_details') }}</p>
                             </li>  
@@ -45,7 +50,7 @@
                             </li> 
                             <li>
                                 {!! Form::label('gallery_id['.$translate_id.']', 'Galeria:') !!}
-                                {!! Form::select('gallery_id['.$translate_id.']', $galleries, ( $reference_data[$translate_id]['gallery_id'] || 0 ) ); !!} 
+                                {!! Form::select('gallery_id['.$translate_id.']', $galleries, ( $reference_data[$translate_id]['gallery_id'] == null ? 0 : $reference_data[$translate_id]['gallery_id'] ) ); !!} 
                                 <p class="colorRed align-left m-t-0 m-b-20">{{ $errors->first('gallery_id') }}</p>
                             </li>                                                                                        
                         </ul>                                    

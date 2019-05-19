@@ -45,7 +45,7 @@ class UserController extends Controller
     }
 
     public function logout() {
-        Auth::logout();
+        session()->forget('current_user');
         return Redirect::to('login');
     }
 }

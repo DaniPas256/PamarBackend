@@ -107,10 +107,11 @@ class GalleriesController extends Controller
   }
   
   public function uploadFile( Request $request, \App\Galleries $gallery ){
-    $imageName = time() . '_' . $request->file->getClientOriginalName();
-    $request->file->move( public_path('userFiles/galleries'), $imageName);
-    
-    $path_to_file = 'userFiles/galleries/' . $imageName;
+      $imageName = time() . '_' . $request->file->getClientOriginalName();
+      $request->file->move( public_path('userFiles/galleries'), $imageName);
+      
+
+    $path_to_file = './backend/public/userFiles/galleries/' . $imageName;
     $file = new \App\Files();
       $file->name = $request->file->getClientOriginalName(); 
       $file->extension = $request->file->getClientOriginalExtension();
