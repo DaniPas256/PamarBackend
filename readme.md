@@ -4,7 +4,10 @@ Hello! This is my own CMS. I created it for my client needs. Now it's one of my 
 
 [**SEE DEMO**](https://dpcode.pl/projects/pamar-cms/)
 
+** FILE UPLOAD IS OFF **
+
 Login: admin@dpcode.pl
+
 Password: test1234
 
 ## Features
